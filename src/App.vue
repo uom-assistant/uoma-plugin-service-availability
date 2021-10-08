@@ -1,0 +1,50 @@
+<template>
+  <h1 class="font-display text-2xl px-3 py-5 font-bold flex items-center justify-start">
+    <span class="w-15px h-15px bg-primary-dark rounded-full mr-3 ml-2 flex-center dark:bg-primary-light">
+      <span class="w-15px h-15px bg-primary-dark block rounded-full animate-ping animation-slow bg-opacity-40 dark:bg-primary-light" />
+    </span>
+    Service availability
+  </h1>
+  <Ongoing :list="ongoingList" v-if="ongoingList.length > 0" />
+  <AllServices :list="list" v-if="list.length > 0" />
+  <Loading :list="list" :loading="loading" v-if="list.length === 0" />
+  <footer class="-mt-0.5 pb-2.5 text-sm">
+    <a target="_blank" class="inline-flex items-center mx-3 text-primary-dark dark:text-primary-light" href="https://www.itservices.manchester.ac.uk/help/serviceavailability/">Source<mdi-open-in-new class="text-xs ml-1" /></a><span class="text-gray-400 dark:text-gray-500 inline-block -ml-1">•&nbsp;&nbsp;Auto-refresh every 10 minutes</span>
+  </footer>
+</template>
+
+<script setup lang="ts">
+import { computed, onMounted, ref } from '@vue/runtime-core'
+
+import Ongoing from './components/Ongoing.vue'
+import AllServices from './components/AllServices.vue'
+import Loading from './components/Loading.vue'
+
+import { service } from './types/service'
+
+const list = ref<service[]>([])
+const loading = ref(false)
+
+const ongoingList = computed(() => list.value.filter(item => item.availability === 'issues'))
+
+/**
+ * Load data from API
+ */
+const load = async () => {
+  loading.value = true
+
+  const response: Promise<{
+    outcome: boolean,
+    result: service[]
+  }> = await fetch('https://webapps.manchester.ac.uk/shared/areas/serviceavailability/live/ajax/list_serviceavailability.php?xsi=14&advanced=1').then((res) => res.json()).catch(() => Promise.resolve([]))
+
+  loading.value = false
+
+  list.value = (await response).result
+}
+
+onMounted(async () => {
+  load()
+  setInterval(load, 600000)
+})
+</script>
