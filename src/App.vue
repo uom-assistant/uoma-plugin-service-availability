@@ -5,6 +5,9 @@
     </span>
     Service availability
   </h1>
+  <section class="px-3 py-2 bg-green-50 rounded-lg m-3 mt-0 text-green-500 border-green-200 border-1px dark:bg-green-200 dark:border-green-300 dark:border-opacity-30 dark:bg-opacity-15 flex items-center" v-if="ongoingList.length === 0">
+    <mdi-check-circle-outline class="mr-2 text-sm" /> All services are in operation.
+  </section>
   <Ongoing :list="ongoingList" v-if="ongoingList.length > 0" />
   <AllServices :list="list" v-if="list.length > 0" />
   <Loading :list="list" :loading="loading" v-if="list.length === 0" />
@@ -15,10 +18,6 @@
 
 <script setup lang="ts">
 import { computed, onMounted, ref } from '@vue/runtime-core'
-
-import Ongoing from './components/Ongoing.vue'
-import AllServices from './components/AllServices.vue'
-import Loading from './components/Loading.vue'
 
 import { service } from './types/service'
 

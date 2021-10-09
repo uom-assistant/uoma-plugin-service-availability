@@ -13,7 +13,7 @@
           <p class="text-sm text-gray-500 dark:text-warm-gray-400" v-if="item.notes">{{ item.notes }}</p>
           <div class="flex items-center justify-between mt-1">
             <span class="text-xs text-gray-500 dark:text-warm-gray-400" v-if="item.timestamp">Last updated: {{ item.timestamp }}</span>
-            <a class="text-xs text-primary-dark inline-flex items-center dark:text-primary-light" target="_blank" v-if="item.url" :href="item.url">Find out more <mdi-open-in-new class="ml-0.5" /></a>
+            <a class="text-xs text-primary-dark inline-flex items-center dark:text-primary-light hover:underline" target="_blank" v-if="item.url" :href="item.url">Find out more <mdi-open-in-new class="ml-0.5" /></a>
           </div>
         </li>
         <hr class="pb-1 mt-2.5 border-orange-100 dark:border-orange-200 dark:border-opacity-20" v-if="index !== list.length - 1">
