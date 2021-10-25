@@ -5,10 +5,11 @@
     </span>
     Service availability
   </h1>
-  <section class="px-3 py-2 bg-green-50 rounded-lg m-3 mt-0 text-green-500 border-green-200 border-1px dark:bg-green-200 dark:border-green-300 dark:border-opacity-30 dark:bg-opacity-15 flex items-center" v-if="ongoingList.length === 0">
+  <section class="px-3 py-2 bg-green-50 rounded-lg m-3 mt-0 text-green-500 border-green-200 border-1px dark:bg-green-200 dark:border-green-300 dark:border-opacity-30 dark:bg-opacity-15 flex items-center" v-if="ongoingList.length === 0 && errorList.length > 0 && list.length > 0 && !loading">
     <mdi-check-circle-outline class="mr-2 text-sm" /> All services are in operation.
   </section>
-  <Ongoing :list="ongoingList" v-if="ongoingList.length > 0" />
+  <Ongoing type="error" :list="errorList" v-if="errorList.length > 0" />
+  <Ongoing type="issue" :list="ongoingList" v-if="ongoingList.length > 0" />
   <AllServices :list="list" v-if="list.length > 0" />
   <Loading :list="list" :loading="loading" v-if="list.length === 0" />
   <footer class="-mt-0.5 pb-2.5 text-sm">
@@ -25,6 +26,7 @@ const list = ref<service[]>([])
 const loading = ref(false)
 
 const ongoingList = computed(() => list.value.filter(item => item.availability === 'issues'))
+const errorList = computed(() => list.value.filter(item => item.availability === 'error'))
 
 /**
  * Load data from API

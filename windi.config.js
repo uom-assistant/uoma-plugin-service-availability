@@ -9,7 +9,7 @@ export default defineConfig({
     ]
   },
   darkMode: 'class',
-  safelist: ['bg-green-500', 'bg-yellow-500'],
+  safelist: ['bg-green-500', 'bg-yellow-500', 'bg-yellow-50', 'border-orange-200', 'dark:bg-yellow-200', 'dark:border-orange-300', 'bg-red-50', 'border-red-200', 'dark:bg-red-200', 'dark:border-red-300', 'border-orange-100', 'dark:border-orange-200', 'border-red-100', 'dark:border-red-200'],
   theme: {
     extend: {
       colors: {
