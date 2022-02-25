@@ -13,6 +13,7 @@
     "@iconify/json": "^1.1.412",
     "@typescript-eslint/eslint-plugin": "^4.28.2",
     "@typescript-eslint/parser": "^4.28.2",
+    "@vitejs/plugin-legacy": "^1.7.1",
     "@vitejs/plugin-vue": "^1.9.3",
     "@vue/eslint-config-standard": "^6.0.0",
     "@vue/eslint-config-typescript": "^7.0.0",

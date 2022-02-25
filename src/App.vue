@@ -47,5 +47,28 @@ const load = async () => {
 onMounted(async () => {
   load()
   setInterval(load, 600000)
+
+  const urlParams = new URLSearchParams(window.location.search)
+  if ((urlParams.get('dark') || 'false') === 'true') {
+    document.documentElement.classList.add('dark')
+  }
+
+  const parentOrigin = urlParams.get('origin') || ''
+
+  window.addEventListener('message', (event) => {
+    if (event.origin !== parentOrigin) {
+      return
+    }
+    const data = JSON.parse(event.data)
+    for (const action of data) {
+      if (action.type === 'dark') {
+        if (action.payload) {
+          document.documentElement.classList.add('dark')
+        } else {
+          document.documentElement.classList.remove('dark')
+        }
+      }
+    }
+  }, false)
 })
 </script>
