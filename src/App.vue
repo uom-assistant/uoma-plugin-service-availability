@@ -72,3 +72,9 @@ onMounted(async () => {
   }, false)
 })
 </script>
+
+<style>
+html.dark {
+  color-scheme: dark;
+}
+</style>
