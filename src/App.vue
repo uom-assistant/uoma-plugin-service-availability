@@ -14,7 +14,7 @@
   <Loading :list="list" :loading="loading" v-if="list.length === 0" />
   <footer class="pt-1 pb-4 text-sm">
     <a target="_blank" class="inline-flex items-center mx-3 text-primary-dark dark:text-primary-light" href="https://www.itservices.manchester.ac.uk/help/serviceavailability/">Source<mdi-open-in-new class="text-xs ml-1" /></a>
-    <div class="text-gray-400 dark:text-gray-500 inline-block mx-3 mt-0.7">Updated {{ formatTime }}&nbsp;•&nbsp;Auto-refresh every 10 minutes</div>
+    <div class="text-gray-400 dark:text-gray-500 mx-3 mt-0.7">Updated {{ formatTime }}&nbsp;•&nbsp;Auto-refresh every 10 minutes</div>
   </footer>
 </template>
 
