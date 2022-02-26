@@ -12,8 +12,9 @@
   <Ongoing type="issue" :list="ongoingList" v-if="ongoingList.length > 0" />
   <AllServices :list="list" v-if="list.length > 0" />
   <Loading :list="list" :loading="loading" v-if="list.length === 0" />
-  <footer class="pt-1 pb-3.5 text-sm">
-    <a target="_blank" class="inline-flex items-center mx-3 text-primary-dark dark:text-primary-light" href="https://www.itservices.manchester.ac.uk/help/serviceavailability/">Source<mdi-open-in-new class="text-xs ml-1" /></a><span class="text-gray-400 dark:text-gray-500 inline-block -ml-1">•&nbsp;&nbsp;Auto-refresh every 10 minutes</span>
+  <footer class="pt-1 pb-4 text-sm">
+    <a target="_blank" class="inline-flex items-center mx-3 text-primary-dark dark:text-primary-light" href="https://www.itservices.manchester.ac.uk/help/serviceavailability/">Source<mdi-open-in-new class="text-xs ml-1" /></a>
+    <div class="text-gray-400 dark:text-gray-500 inline-block mx-3 mt-0.7">Updated {{ formatTime }}&nbsp;•&nbsp;Auto-refresh every 10 minutes</div>
   </footer>
 </template>
 
@@ -24,9 +25,15 @@ import { service } from './types/service'
 
 const list = ref<service[]>([])
 const loading = ref(false)
+const updated = ref(new Date().valueOf())
 
 const ongoingList = computed(() => list.value !== undefined ? list.value.filter(item => item.availability === 'issues') : [])
 const errorList = computed(() => list.value !== undefined ? list.value.filter(item => item.availability === 'error') : [])
+
+const formatTime = computed(() => {
+  const date = new Date(updated.value)
+  return `${`${date.getHours()}`.padStart(2, '0')}:${`${date.getMinutes()}`.padStart(2, '0')}`
+})
 
 /**
  * Load data from API
@@ -42,6 +49,7 @@ const load = async () => {
   loading.value = false
 
   list.value = (await response).result
+  updated.value = new Date().valueOf()
 }
 
 onMounted(async () => {
