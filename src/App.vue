@@ -25,8 +25,8 @@ import { service } from './types/service'
 const list = ref<service[]>([])
 const loading = ref(false)
 
-const ongoingList = computed(() => list.value.filter(item => item.availability === 'issues'))
-const errorList = computed(() => list.value.filter(item => item.availability === 'error'))
+const ongoingList = computed(() => list.value !== undefined ? list.value.filter(item => item.availability === 'issues') : [])
+const errorList = computed(() => list.value !== undefined ? list.value.filter(item => item.availability === 'error') : [])
 
 /**
  * Load data from API
